@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Código de la Locura | Simulación Activa</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --panel-bg: #111827;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        .status {
+            font-size: 0.85rem;
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .audio-banner {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .story-box {
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .quote {
+            border-left: 3px solid var(--accent-green);
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #d1d5db;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: #1f2937;
+            color: var(--text-main);
+            border: 1px solid #374151;
+            padding: 12px 18px;
+            text-align: left;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #374151;
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .module-visual {
+            background-color: #030712;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px dashed var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .prompt-text {
+            color: #6ee7b7;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            display: block;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <span class="title">⚡ EL CÓDIGO DE LA LOCURA</span>
+            <span class="status" id="system-status">SISTEMA BLOQUEADO · BUCLE DETECTADO</span>
+        </div>
+
+        <div class="audio-banner">
+            🔊 <em>Paisaje Sonoro: Zumbido de servidores sobrecalentados, alarmas rítmicas y murmullos del Dr. Byte.</em>
+        </div>
+
+        <div class="story-box" id="story-content">
+            <h2>Registro 01: El colapso del bucle</h2>
+            <p><strong>Fecha:</strong> 24 de octubre de 2150 · Laboratorio Central</p>
+            <div class="quote">
+                "¡No debería pasar esto! Solo quería automatizar la cafetera con un condicional simple y ahora el servidor principal está atrapado en un bucle infinito que no me deja salir del laboratorio. Si el sistema no recibe una solución lógica, todo el código fuente se borrará."
+            </div>
+            <p><strong>¿Qué instrucción deseas aplicar para reparar el código?</strong></p>
+        </div>
+
+        <div class="choices" id="choice-container">
+            <button onclick="makeChoice(1)">[01] Aplicar un condicional de emergencia (`if / else`) para aislar el error y abrir la puerta.</button>
+            <button onclick="makeChoice(2)">[02] Reescribir el bucle (`while loop`) para fijar un límite de intentos y detener el colapso.</button>
+            <button onclick="makeChoice(3)">[03] Desconectar el servidor de golpe (Apagado de emergencia total).</button>
+        </div>
+
+        <div class="module-visual">
+            <strong>🎬 Módulo Visual (CinePrompt - Laboratorio de IA):</strong>
+            <span id="visual-desc">Slow Dolly In hacia el laboratorio caótico del científico loco.</span>
+            <code class="prompt-text" id="prompt-code">slow Dolly In, pushing forward into a mad scientist's high-tech computer lab overflowing with glowing server racks, tangled cables, chaotic neon blue and green lights, cinematic style --ar 16:9</code>
+        </div>
+    </div>
+
+    <script>
+        function makeChoice(option) {
+            const storyBox = document.getElementById('story-content');
+            const choiceContainer = document.getElementById('choice-container');
+            const systemStatus = document.getElementById('system-status');
+            const visualDesc = document.getElementById('visual-desc');
+            const promptCode = document.getElementById('prompt-code');
+
+            if (option === 1) {
+                systemStatus.innerText = "SISTEMA RESTAURADO · CONDICIONAL EXITOSO";
+                systemStatus.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
+                systemStatus.style.color = "var(--accent-green)";
+                
+                storyBox.innerHTML = `
+                    <h2>HITO 02: Condicional Aplicado con Éxito</h2>
+                    <p><strong>Dr. Byte:</strong> ¡Lo lograste! El bloque <code>if/else</code> evaluó correctamente la energía y abrió la compuerta de seguridad justo a tiempo.</p>
+                    <div class="quote">
+                        "El sistema vuelve a respirar. Aprendiste que una buena toma de decisiones lógica (condicionales) puede salvar cualquier sistema informático del desastre."
+                    </div>
+                    <p>Has completado con éxito la ruta de aprendizaje de programación básica de este módulo transmedia.</p>
+                `;
+                choiceContainer.innerHTML = `<button onclick="location.reload()">🔄 Reiniciar Simulación</button>`;
+                visualDesc.innerText = "Crane shot ascendente mostrando las compuertas de seguridad abriéndose y luces verdes estables.";
+                promptCode.innerText = "Crane shot moving slowly upwards, green glowing server lights stabilizing, hopeful futuristic tone, cinematic style --ar 16:9";
+
+            } else if (option === 2) {
+                systemStatus.innerText = "SISTEMA ESTABILIZADO · BUCLE CONTROLADO";
+                systemStatus.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
+                systemStatus.style.color = "var(--accent-green)";
+
+                storyBox.innerHTML = `
+                    <h2>HITO 02: Límite de Bucle Configurado</h2>
+                    <p><strong>Dr. Byte:</strong> ¡Excelente manejo del <code>while loop</code>! Al indicarle un punto de parada, la IA dejó de repetirse infinitamente.</p>
+                    <div class="quote">
+                        "El laboratorio está a salvo y los datos recuperados. Has comprendido a la perfección cómo estructurar ciclos de repetición controlados."
+                    </div>
+                `;
+                choiceContainer.innerHTML = `<button onclick="location.reload()">🔄 Reiniciar Simulación</button>`;
+                visualDesc.innerText = "Cámara orbital girando alrededor del científico celebrando con código flotando de fondo.";
+                promptCode.innerText = "Continuous 360-degree orbit shot arcing around a relieved mad scientist in a high-tech lab, cyberpunk neon lighting --ar 16:9";
+
+            } else {
+                systemStatus.innerText = "APAGADO CRÍTICO · PÉRDIDA DE DATOS";
+                systemStatus.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
+                systemStatus.style.color = "var(--accent-red)";
+
+                storyBox.innerHTML = `
+                    <h2>HITO 02: Apagado de Emergencia</h2>
+                    <p><strong>Dr. Byte:</strong> ¡Apagaste el servidor principal de golpe! Salvaste el laboratorio del colapso total, pero perdimos la mitad de las notas de la bitácora.</p>
+                    <div class="quote">
+                        "Sobrevivimos, pero tendremos que volver a programar todo desde cero. Intenta usar lógica la próxima vez en lugar de la fuerza bruta."
+                    </div>
+                `;
+                choiceContainer.innerHTML = `<button onclick="location.reload()">🔄 Intentar de Nuevo</button>`;
+                visualDesc.innerText = "Apagón repentino de luces de neón en el laboratorio con chispas en las pantallas.";
+                promptCode.innerText = "Sudden total blackout in a high-tech sci-fi lab, glowing neon screens flickering off with sparks, dramatic shadows --ar 16:9";
+            }
+        }
+    </script>
+</body>
+</html>
